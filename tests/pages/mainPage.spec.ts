@@ -1,27 +1,20 @@
-import { test, expect, Page, Locator } from '@playwright/test';
+import { test, expect } from '../fixtures/mainPage';
 import { before, beforeEach } from 'node:test';
 import { MainPage } from '../models/MainPage';
 
-let mainPage: MainPage;
-
 test.describe('тесты главной страницы', () => {
-  test.beforeEach(async ({ page }) => {
-    mainPage = new MainPage(page);
-    await mainPage.openMainPage();
-  });
-
-  test('1. Проверка отображения элементов навигаций хэдера', async () => {
+  test('1. Проверка отображения элементов навигаций хэдера', async ({ mainPage }) => {
     await mainPage.checkElementsVisability();
   });
 
-  test('2. Проверка названий элементов навигаций хэдера', async () => {
+  test('2. Проверка названий элементов навигаций хэдера', async ({ mainPage }) => {
     await mainPage.checkElementsText();
   });
 
-  test('3. Проверка атрибутов href элементов навигаций хэдера', async () => {
+  test('3. Проверка атрибутов href элементов навигаций хэдера', async ({ mainPage }) => {
     await mainPage.checkElementsHrefAttribute();
   });
-  test('4. Проверка изменения лайт мода на странице', async () => {
+  test('4. Проверка изменения лайт мода на странице', async ({ mainPage }) => {
     await test.step('Нажатие на иконку переключения лайт мода', async () => {
       await mainPage.clickSwitchLightModeIcon();
     });
@@ -30,7 +23,7 @@ test.describe('тесты главной страницы', () => {
     });
   });
 
-  test(`5.Проверка стилей со cветлой темой`, async () => {
+  test(`5.Проверка стилей со cветлой темой`, async ({ mainPage }) => {
     await test.step('Переключение на светлую тему', async () => {
       await mainPage.setLightMode();
     });
@@ -38,7 +31,7 @@ test.describe('тесты главной страницы', () => {
       await mainPage.checkLayoutWithLightMode();
     });
   });
-  test(`6.Проверка стилей с темной темой`, async () => {
+  test(`6.Проверка стилей с темной темой`, async ({ mainPage }) => {
     await test.step('Переключение на темную тему', async () => {
       await mainPage.setDarkMode();
     });
